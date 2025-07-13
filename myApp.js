@@ -1,22 +1,10 @@
 const express = require('express');
-const app = express();
 const helmet = require('helmet');
 
-// ✅ Ocultar el header X-Powered-By
+const app = express();
+
+// ✅ Middleware requerido por FreeCodeCamp para ocultar "X-Powered-By"
 app.use(helmet.hidePoweredBy());
 
-const api = require('./server.js');
-app.use(express.static('public'));
-app.disable('strict-transport-security');
-app.use('/_api', api);
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
-});
-
-let port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Your app is listening on port ${port}`);
-});
-
-// ✅ Exportar la app SOLO aquí
+// ✅ Exportar la app para que los tests de freeCodeCamp funcionen
 module.exports = app;
